@@ -1,0 +1,85 @@
+<mvc:View controllerName="ui5.ui5app.controller.UI5View"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:semantic="sap.f.semantic">
+    <semantic:SemanticPage
+        id="page"
+        headerPinnable="false"
+        toggleHeaderOnTitleClick="false">
+
+        <semantic:titleHeading>
+            <Title
+            id="title"
+            text="{i18n>title}"
+            level="H2"/>
+        </semantic:titleHeading>
+
+        <semantic:content>
+            <Table
+                id="table"
+                width="auto"
+                items="{
+                    path: '/Employees',
+                    sorter: {
+                        path: 'ID',
+                        descending: false
+                    }
+                }"
+                growing="true"
+                growingScrollToLoad="true"
+                updateFinished=".onUpdateFinished">
+                <headerToolbar>
+                    <OverflowToolbar id="toolbar">
+                        <Title
+                            id="tableHeader"
+                            text="{i18n>listTableTitle}"
+                            level="H3"/>
+                        <ToolbarSpacer id="toolbarSpacer"/>
+                        <SearchField
+                            id="searchField"
+                            tooltip="{i18n>searchTooltip}"
+                            search=".onSearch">
+                            <layoutData>
+                                <OverflowToolbarLayoutData id="overflowToolbarLayoutData"
+                                    maxWidth="200px"
+                                    priority="NeverOverflow"/>
+                            </layoutData>
+                        </SearchField>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="idColumn">
+                        <Text text="ID" id="idColumnText"/>
+                    </Column>
+                    <Column id="firstNameColumn">
+                        <Text text="First Name" id="firstNameColumnText"/>
+                    </Column>
+                    <Column id="lastNameColumn">
+                        <Text text="Last Name" id="lastNameColumnText"/>
+                    </Column>
+                    <Column id="positionColumn">
+                        <Text text="Position" id="positionColumnText"/>
+                    </Column>
+                    <Column id="experienceColumn">
+                        <Text text="Experience" id="experienceColumnText"/>
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem id="columnListItem"
+                        type="Navigation"
+                        press=".onPress">
+                        <cells>
+                            <ObjectIdentifier id="objectIdentifier"
+                                text="{ID}"/>
+                            <Text id="Text1" text="{first_name}"/>
+                            <Text id="Text2" text="{last_name}"/>
+                            <Text id="Text3" text="{position}"/>
+                            <Text id="Text4" text="{Experience}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </semantic:content>
+    </semantic:SemanticPage>
+</mvc:View>
