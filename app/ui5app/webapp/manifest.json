@@ -69,14 +69,16 @@
           "bundleName": "ui5.ui5app.i18n.i18n"
         }
       },
-      "": {
+      "mainModel": {
+        "type": "sap.ui.model.odata.v4.ODataModel",
         "dataSource": "mainService",
         "preload": true,
         "settings": {
           "synchronizationMode": "None",
           "operationMode": "Server",
           "autoExpandSelect": true,
-          "earlyRequests": true
+          "earlyRequests": true,
+          "groupId": "$auto"
         }
       }
     },

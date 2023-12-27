@@ -1,81 +1,193 @@
-<mvc:View controllerName="ui5.ui5app.controller.UI5View"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+<mvc:View
+    controllerName="ui5.ui5app.controller.UI5View"
     xmlns="sap.m"
-    xmlns:semantic="sap.f.semantic">
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:f="sap.ui.layout.form"
+>
     <semantic:SemanticPage
         id="page"
         headerPinnable="false"
-        toggleHeaderOnTitleClick="false">
-
+        toggleHeaderOnTitleClick="false"
+    >
         <semantic:titleHeading>
             <Title
-            id="title"
-            text="{i18n>title}"
-            level="H2"/>
+                id="title"
+                text="{i18n>title}"
+                level="H2"
+            />
         </semantic:titleHeading>
 
         <semantic:content>
             <Table
                 id="table"
+                mode="SingleSelectLeft"
                 width="auto"
-                items="{
-                    path: '/Employees',
-                    sorter: {
-                        path: 'ID',
-                        descending: false
-                    }
-                }"
+                items="{mainModel>/Employees}"
                 growing="true"
                 growingScrollToLoad="true"
-                updateFinished=".onUpdateFinished">
+                updateFinished=".onUpdateFinished"
+            >
                 <headerToolbar>
                     <OverflowToolbar id="toolbar">
                         <Title
                             id="tableHeader"
                             text="{i18n>listTableTitle}"
-                            level="H3"/>
-                        <ToolbarSpacer id="toolbarSpacer"/>
+                            level="H3"
+                        />
+                        <ToolbarSpacer id="toolbarSpacer" />
                         <SearchField
                             id="searchField"
                             tooltip="{i18n>searchTooltip}"
-                            search=".onSearch">
+                            search=".onSearch"
+                        >
                             <layoutData>
-                                <OverflowToolbarLayoutData id="overflowToolbarLayoutData"
+                                <OverflowToolbarLayoutData
+                                    id="overflowToolbarLayoutData"
                                     maxWidth="200px"
-                                    priority="NeverOverflow"/>
+                                    priority="NeverOverflow"
+                                />
                             </layoutData>
                         </SearchField>
+                        <Button
+                            id="deleteButton"
+                            icon="sap-icon://delete"
+                            tooltip="Delete"
+                            visible="true"
+                            press="onDelete"
+                        >
+                            <layoutData>
+                                <OverflowToolbarLayoutData
+                                    id="OverflowToolbarLayoutData"
+                                    priority="NeverOverflow"
+                                />
+                            </layoutData>
+                        </Button>
+                        <Button id="createButton" icon="sap-icon://add" tooltip="Create" visible="true" press="onOpenAddDialog"/>
+                        <Button id="editButton" icon="sap-icon://edit" tooltip="Edit" visible="true" press="onEdit"/>
+                        <Button text="Save" id="saveButton" tooltip="Save" visible="false" press="onSave"/>
+
+                        <dependents>
+                            <Dialog
+                                id="OpenDialog"
+                                title="Create Employee Data"
+                            >
+                                <buttons>
+                                    <Button
+                                        id="confirmCreate"
+                                        text="Create"
+                                        press=".onCreate"
+                                        type="Emphasized"
+                                    />
+                                    <Button
+                                        id="cancelCreate"
+                                        text="Cancel"
+                                        press="onCancelDialog"
+                                        type="Transparent"
+                                    />
+                                </buttons>
+                                <f:SimpleForm
+                                    id="formID"
+                                    editable="true"
+                                    layout="ResponsiveGridLayout"
+                                >
+                                    <f:content>
+                                        <Label
+                                            id="idLabel"
+                                            text="ID"
+                                            required="true"
+                                        />
+                                        <Input
+                                            id="idInput"
+                                            change="onNameChange"
+                                        />
+                                        <Label
+                                            id="firstNameLabel"
+                                            text="First Name"
+                                        />
+                                        <Input id="firstNameInput" />
+                                        <Label
+                                            id="lastNameLabel"
+                                            text="Last Name"
+                                        />
+                                        <Input id="lastNameInput" />
+                                        <Label
+                                            id="positionLabel"
+                                            text="Position"
+                                        />
+                                        <Input id="positionInput" />
+                                        <Label
+                                            id="experienceLabel"
+                                            text="Experience"
+                                        />
+                                        <Input id="experienceInput" targetType="any" />
+                                    </f:content>
+                                </f:SimpleForm>
+                            </Dialog>
+                        </dependents>
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
                     <Column id="idColumn">
-                        <Text text="ID" id="idColumnText"/>
+                        <Text
+                            text="ID"
+                            id="idColumnText"
+                        />
                     </Column>
                     <Column id="firstNameColumn">
-                        <Text text="First Name" id="firstNameColumnText"/>
+                        <Text
+                            text="First Name"
+                            id="firstNameColumnText"
+                        />
                     </Column>
                     <Column id="lastNameColumn">
-                        <Text text="Last Name" id="lastNameColumnText"/>
+                        <Text
+                            text="Last Name"
+                            id="lastNameColumnText"
+                        />
                     </Column>
                     <Column id="positionColumn">
-                        <Text text="Position" id="positionColumnText"/>
+                        <Text
+                            text="Position"
+                            id="positionColumnText"
+                        />
                     </Column>
                     <Column id="experienceColumn">
-                        <Text text="Experience" id="experienceColumnText"/>
+                        <Text
+                            text="Experience"
+                            id="experienceColumnText"
+                        />
                     </Column>
                 </columns>
 
                 <items>
-                    <ColumnListItem id="columnListItem"
+                    <ColumnListItem
+                        id="columnListItem"
                         type="Navigation"
-                        press=".onPress">
+                        press=".onPress"
+                    >
                         <cells>
-                            <ObjectIdentifier id="objectIdentifier"
-                                text="{ID}"/>
-                            <Text id="Text1" text="{first_name}"/>
-                            <Text id="Text2" text="{last_name}"/>
-                            <Text id="Text3" text="{position}"/>
-                            <Text id="Text4" text="{Experience}"/>
+                            <Text
+                                id="Text0"
+                                text="{mainModel>ID}"
+                            />
+                            <Text
+                                id="Text1"
+                                text="{mainModel>first_name}"
+                            />
+                            <Text
+                                id="Text2"
+                                text="{mainModel>last_name}"
+                            />
+                            <Text
+                                id="Text3"
+                                text="{mainModel>position}"
+                            />
+                            <Text
+                                id="Text4"
+                                text="{mainModel>Experience}"
+                            />
                         </cells>
                     </ColumnListItem>
                 </items>
