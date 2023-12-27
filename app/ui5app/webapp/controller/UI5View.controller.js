@@ -64,7 +64,7 @@ sap.ui.define([
                     const oIDList = oList.getBinding("items").aPreviousData;
                     const oIDIndex = oIDList.indexOf(idCheck);
                     console.log(oIDIndex);
-                    
+                    //
                     if (oIDIndex >= 0) {
                         const errorMsg = `Employee ID ${idInput} is already exist!`;
                         this.getView().byId("OpenDialog").close();
