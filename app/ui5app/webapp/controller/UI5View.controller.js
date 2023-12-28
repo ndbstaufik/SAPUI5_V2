@@ -77,7 +77,7 @@ sap.ui.define([
                             "position": this.byId("positionInput").getValue(),
                             "Experience": this.byId("experienceInput").getValue()
                         });
-                        console.log(oContext);
+                        //console.log(oContext);
                         oContext.created()
                             .then(() => {
                                 this.getView().byId("OpenDialog").close();
